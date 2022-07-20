@@ -1,6 +1,6 @@
 {
   "name": "@localnerve/csp-hashes",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Flexible library to handle CSP hashes at build time ",
   "main": "dist/index.js",
   "scripts": {
