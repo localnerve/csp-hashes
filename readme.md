@@ -4,7 +4,7 @@
 
 [![npm version](https://badge.fury.io/js/%40localnerve%2Fcsp-hashes.svg)](https://badge.fury.io/js/%40localnerve%2Fcsp-hashes)
 ![Verify](https://github.com/localnerve/csp-hashes/workflows/Verify/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/localnerve/csp-hashes/badge.svg?branch=master)](https://coveralls.io/github/localnerve/csp-hashes?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/localnerve/csp-hashes/badge.svg?branch=main)](https://coveralls.io/github/localnerve/csp-hashes?branch=main)
 
 ## Contents
 + [Overview](#overview)
