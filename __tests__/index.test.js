@@ -16,7 +16,10 @@ function fixtures (glob) {
 function parseHashFixture (fixtureFilename) {
   const result = {
     elements: [],
-    attributes: []
+    attributes: [],
+    get all () {
+      return this.elements.concat(this.attributes);
+    }
   };
 
   try {
@@ -42,6 +45,7 @@ function onStreamError (err) {
 
 function onStreamFinish (expectedHashes, actualHashes, done) {
   Object.keys(expectedHashes).forEach(what => {
+    expect(actualHashes[what].all.join(' ')).toEqual(expectedHashes[what].all.join(' '));
     Object.keys(expectedHashes[what]).forEach(which => {
       expect(actualHashes[what][which].length).toEqual(expectedHashes[what][which].length);
       for (let i = 0; i < expectedHashes[what][which].length; ++i) {
@@ -52,7 +56,10 @@ function onStreamFinish (expectedHashes, actualHashes, done) {
   done();
 }
 
-function run (name, algo, replace, { hashFixtureScript = 'none', hashFixtureStyle = 'none'} = {}, done) {
+function run (name, algo, replace, {
+  hashFixtureScript = 'none',
+  hashFixtureStyle = 'none'
+} = {}, done) {
   const srcFile = new Vinyl({
     path: fixtures(`${name}.html`),
     cwd: 'test/',
@@ -87,10 +94,14 @@ function run (name, algo, replace, { hashFixtureScript = 'none', hashFixtureStyl
       }
 
       Object.keys(hashes).forEach(what => {
+        Object.defineProperty(actualHashes[what], 'all', {
+          get: Object.getOwnPropertyDescriptor(hashes[what], 'all').get
+        });
         Object.keys(hashes[what]).forEach(which => {
           actualHashes[what][which].push(...hashes[what][which].map(x => x.replace(/'/g, '')));
         });
       });
+
       return contents;
     }
   });
