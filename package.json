@@ -1,0 +1,47 @@
+{
+  "name": "@localnerve/csp-hashes",
+  "version": "0.1.0",
+  "description": "Flexible library to handle CSP hashes at build time ",
+  "main": "dist/index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "transpile": "rimraf ./dist && babel --out-dir ./dist index.js && babel --out-dir ./dist/lib ./lib",
+    "prepublishOnly": "npm run transpile",
+    "pretest": "node -e 'try{require(\"fs\").symlinkSync(\"../lib\", \"./__tests__/lib\");}catch(e){}'",
+    "test": "jest",
+    "test:debug": "jest --inspect-brk"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/register": "^7.17.7",
+    "coveralls": "^3.1.1",
+    "eslint": "^8.11.0",
+    "jest": "^27.5.1",
+    "prettier": "^2.6.0",
+    "rimraf": "^3.0.2",
+    "vinyl": "^2.2.1"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "through2": "^4.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/localnerve/csp-hashes.git"
+  },
+  "keywords": [
+    "CSP",
+    "hashes",
+    "gulp"
+  ],
+  "author": "Alex Grant <alex@localnerve.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/localnerve/csp-hashes/issues"
+  },
+  "homepage": "https://github.com/localnerve/csp-hashes#readme",
+  "engines": {
+    "node": "14 - 16"
+  }
+}
