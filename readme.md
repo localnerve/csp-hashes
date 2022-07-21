@@ -2,7 +2,7 @@
 
 > Flexible build library to generate script and style hashes for CSP headers or meta tags
 
-[![npm version](https://badge.fury.io/js/%40localnerve%2Fcsp-hashes.svg)](https://badge.fury.io/js/%40localnerve%2Fcsp-hashes)
+[![npm version](https://badge.fury.io/js/@localnerve%2Fcsp-hashes.svg)](https://badge.fury.io/js/@localnerve%2Fcsp-hashes)
 ![Verify](https://github.com/localnerve/csp-hashes/workflows/Verify/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/localnerve/csp-hashes/badge.svg?branch=main)](https://coveralls.io/github/localnerve/csp-hashes?branch=main)
 
@@ -18,10 +18,13 @@
 + [MIT License](#license)
 
 ## Overview
-This library generates script and style inline element and attribute hashes. It is for use in the generation of HTTP content security policy (CSP) headers or to replace/update Meta tags as a website build step.
+This Nodejs library generates script and style inline element and attribute hashes. It is for use in the generation of HTTP content security policy (CSP) headers or to replace/update Meta tags as a website build step. Ready for use with [Gulp](https://github.com/gulpjs/gulp).
+
+## Prerequisites
++ NodeJS 14+
 
 ## API
-This library exports a single function that takes options and returns a transform stream in object mode that operates on [Vinyl](https://github.com/gulpjs/vinyl) objects in [Gulp](https://github.com/gulpjs/gulp). The only required option is a [`callback`](#callback-function) function.
+This library exports a single function that takes options and returns a transform stream in object mode. The transform stream operates on [Vinyl](https://github.com/gulpjs/vinyl) objects or a compatible file object with `path` and `contents` properties. The only required option is a [`callback`](#callback-function) function.
 
 ```
 Stream hashstream ({
@@ -71,6 +74,7 @@ The callback hashes object contains all of the inline element and attribute hash
   }
 }
 ```
+
 The object structure allows you to direct the hashes to any CSP header directive layout you might use. You can use `script-src` or `style-src` alone and concatenate the element and attribute hashes together into one list using the `all` getter property, or you can use `script-src-attr` and `style-src-attr` separately, whatever is a more secure/optimal policy for your situation.  
 **NOTE**  
 The `hashes` object structure is always the same. If there are no elements or attributes of script or style in the current file, the arrays are just empty (not null).
@@ -82,6 +86,7 @@ In this example, a build step gets the hashes for every html file under the `dis
 
 ```javascript
 import gulp from 'gulp';
+import path from 'path';
 import hashstream from '@localnerve/csp-hashes';
 import { cspHeaderRules } from './host-header-rules';
 
@@ -90,8 +95,8 @@ export function cspHeaders (settings) {
 
   return gulp.src(`${dist}/**/*.html`)
     .pipe(hashstream({
-      callback: (path, hashes) => {
-        const webPath = path.replace(dist, '');
+      callback: (p, hashes) => {
+        const webPath = p.replace(path.resolve(dist), '');
         cspHeaderRules.updateHashes(webPath, 'script-src', hashes.script.elements.join(' '));
         cspHeaderRules.updateHashes(webPath, 'script-src-attr', hashes.script.attributes.join(' '));
         cspHeaderRules.updateHashes(webPath, 'style-src', hashes.style.elements.join(' '));
