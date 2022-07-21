@@ -1,0 +1,12 @@
+tmp
+__tests__
+.github
+.vscode
+coverage
+babel.config.js
+/lib
+/index.js
+jest.config.js
+.eslintignore
+.gitignore
+.eslintrc.json
