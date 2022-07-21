@@ -153,12 +153,16 @@ describe('should ignore scripts with src attribute', () => {
   it('#sha512', done => { run(name, 'sha512', false, { hashFixtureScript }, done); });
 });
 
-it('should throw an exception on invalid algo', () => {
-  expect(() => hashstream({ algo: 'invalid' })).toThrow();
-});
+describe('should handle bad options', () => {
+  it('should throw an exception on invalid algo', () => {
+    expect(() => hashstream({ algo: 'invalid' })).toThrow();
+  });
 
-it('should throw an exception on invalid callbacks', () => {
-  expect(() => hashstream({})).toThrow();
+  it('should throw an exception on invalid callbacks', () => {
+    expect(() => hashstream({})).toThrow();
+    expect(() => hashstream()).toThrow();
+    expect(() => hashstream({ callback: false })).toThrow();
+  });
 });
 
 describe('should hash multiple script tags and attributes', () => {
