@@ -1,7 +1,7 @@
 {
   "name": "@localnerve/csp-hashes",
-  "version": "0.1.3",
-  "description": "Flexible library to handle CSP hashes at build time",
+  "version": "0.1.4",
+  "description": "Flexible library to generate CSP hashes",
   "main": "dist/index.js",
   "scripts": {
     "lint": "eslint .",
@@ -12,17 +12,17 @@
     "test:debug": "node --inspect-brk ./node_modules/.bin/jest"
   },
   "devDependencies": {
-    "@babel/cli": "^7.17.6",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/register": "^7.17.7",
+    "@babel/cli": "^7.18.9",
+    "@babel/preset-env": "^7.18.9",
+    "@babel/register": "^7.18.9",
     "coveralls": "^3.1.1",
-    "eslint": "^8.11.0",
-    "jest": "^27.5.1",
+    "eslint": "^8.20.0",
+    "jest": "^28.1.3",
     "rimraf": "^3.0.2",
     "vinyl": "^2.2.1"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.3",
+    "cheerio": "^1.0.0-rc.12",
     "through2": "^4.0.2"
   },
   "repository": {
@@ -34,7 +34,17 @@
     "hashes",
     "gulp"
   ],
-  "author": "Alex Grant <alex@localnerve.com>",
+  "author": {
+    "name": "Alex Grant",
+    "email": "alex@localnerve.com",
+    "url": "https://localnerve.com"
+  },
+  "contributors": [
+    {
+      "name": "Alex Grant",
+      "email": "alex@localnerve.com"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/localnerve/csp-hashes/issues"
