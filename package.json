@@ -1,6 +1,6 @@
 {
   "name": "@localnerve/csp-hashes",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Flexible library to generate CSP hashes",
   "main": "dist/index.js",
   "scripts": {
@@ -12,11 +12,11 @@
     "test:debug": "node --inspect-brk ./node_modules/.bin/jest"
   },
   "devDependencies": {
-    "@babel/cli": "^7.18.10",
-    "@babel/preset-env": "^7.18.10",
+    "@babel/cli": "^7.19.3",
+    "@babel/preset-env": "^7.19.4",
     "@babel/register": "^7.18.9",
-    "eslint": "^8.23.0",
-    "jest": "^29.0.1",
+    "eslint": "^8.25.0",
+    "jest": "^29.1.2",
     "rimraf": "^3.0.2",
     "vinyl": "^2.2.1"
   },
@@ -50,6 +50,6 @@
   },
   "homepage": "https://github.com/localnerve/csp-hashes#readme",
   "engines": {
-    "node": "14 - 16"
+    "node": ">=14"
   }
 }
