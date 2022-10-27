@@ -8,4 +8,4 @@
  * Licensed under the MIT license.
  */
 /* eslint-env node */
-export { default } from './lib/index.js';
+export { hashstream as default, hashstream } from './lib/index.js';
