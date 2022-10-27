@@ -95,3 +95,6 @@ tmp
 
 # no private
 private
+
+# vscode
+*.code-workspace
