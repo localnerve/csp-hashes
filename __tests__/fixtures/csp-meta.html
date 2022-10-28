@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv=Content-Security-Policy content="
+  base-uri 'self';
+  default-src 'self';
+  script-src https://polyfill.io 'unsafe-inline' 'self' 'sha256-rExzpKR08DmzriumM64x74bd6TG79uFw0RlSMdXFzO4=' 'sha256-nd7+RDWyHZAUOeVG1UoUoXWjSTuf2PvzjZ6m08v3CCY=' 'sha256-d3ii1Pel57UO62xosCMNgTaZJhJa87Gd/X6e7UdlEU8=' 'sha256-97l24HYIWEdSIQ8PoMHzpxiGCZuyBDXtN19RPKFsOgk=';
+  style-src 'unsafe-inline' 'unsafe-hashes' 'self' 'sha256-ZRXDQAaaiAOOtUbmDL5Ty2JR8Zf1AonXn6DCmchNhvk=' 'sha256-n5JetA0VmZdQj4zgyixeiOgx9wfnK2oa9/zb8+xvZks=' 'sha256-iYwYhiMcsGmXCUzLEpEzZNz5dINrlkqf1sLbLhEcqGM=';
+  img-src 'self' https://*;
+  ">
+  <script>
+    console.log("foo");
+
+
+  </script>
+  <style>* { display: none; }</style>
+</head>
+<body>
+  <style>div { background: red; }</style>
+  <script>"hello world"</script>
+  <div class="decoy"></div>
+  <button onclick="alert(0);"></button>
+  <a href="javascript:void(0)">link</a>
+  <div data-attr="decoy"></div>
+  <div style="position:relative;"></div>
+</body>
+</html>
