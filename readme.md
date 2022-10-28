@@ -24,7 +24,9 @@ This Nodejs library generates script and style inline element and attribute hash
 + NodeJS 14+
 
 ## API
-This library exports a single function that takes options and returns a transform stream in object mode. The transform stream operates on [Vinyl](https://github.com/gulpjs/vinyl) objects or a compatible file object with `path` and `contents` properties. The only required option is a [`callback`](#callback-function) function.
+
+### hashstream (also the default export)
+This library exports a function that takes options and returns a transform stream in object mode. The transform stream operates on [Vinyl](https://github.com/gulpjs/vinyl) objects or a compatible file object with `path` and `contents` properties. The only required option is a [`callback`](#callback-function) function.
 
 ```
 Stream hashstream ({
@@ -32,6 +34,13 @@ Stream hashstream ({
   replace = false,
   algo = 'sha256'
 })
+```
+
+### removeCspMeta
+This library also exports a convenience helper method, `removeCspMeta` that is useful for some types of development builds. This method returns a stream that operates on [Vinyl](https://github.com/gulpjs/vinyl) objects and removes any `Content-Security-Policy` content found in the files.
+
+```
+Stream removeCspMeta ()
 ```
 
 ### Options
@@ -125,6 +134,22 @@ export function cspMetaTags (settings) {
           .replace(/style-src (.+) 'self'/, `style-src $1 'self' ${hashes.style.all.join(' ')}`);
       }
     }))
+    .pipe(gulp.dest(dist));
+}
+```
+
+### Build step to remove CSP Meta tag content
+In this example, a build step removes any content from a `Content-Security-Policy` in a development build that wishes to ignore it.
+
+```javascript
+import gulp from 'gulp';
+import { removeCspMeta } from '@localnerve/csp-hashes';
+
+export function stripCspMetaContents (settings) {
+  const { dist } = settings;
+
+  return gulp.src(`${dist}/**/*.html`)
+    .pipe(removeCspMeta())
     .pipe(gulp.dest(dist));
 }
 ```
