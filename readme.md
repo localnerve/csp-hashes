@@ -37,13 +37,13 @@ Stream hashstream ({
 ```
 
 ### removeCspMeta
-This library also exports a convenience helper method, `removeCspMeta` that is useful for some types of development builds. This method returns a stream that operates on [Vinyl](https://github.com/gulpjs/vinyl) objects and removes any `Content-Security-Policy` content found in the files.
+This library also exports a convenience helper method, `removeCspMeta` that is useful for some types of development builds. This method takes no options and returns a stream that operates on [Vinyl](https://github.com/gulpjs/vinyl) objects and removes any `Content-Security-Policy` content found in the files.
 
 ```
 Stream removeCspMeta ()
 ```
 
-### Options
+### Hashstream Options
 
 + {Function} **callback** - Required - A [function](#callback-function) to process the hashes. Receives file contents and must return new file contents if `replace` option is true.
 + {Boolean} **\[replace\]** - Optional - Defaults to `false`, set to true to indicate your `callback` function returns new file contents to replace the original.
@@ -138,7 +138,7 @@ export function cspMetaTags (settings) {
 }
 ```
 
-### Build step to remove CSP Meta tag content
+### Build Step to Remove CSP Meta Tag Content
 In this example, a build step removes any content from a `Content-Security-Policy` in a development build that wishes to ignore it.
 
 ```javascript
