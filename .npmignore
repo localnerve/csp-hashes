@@ -3,9 +3,7 @@ __tests__
 .github
 .vscode
 coverage
-babel.config.js
-/lib
-/index.js
+babel.config.json
 jest.config.js
 .eslintignore
 .gitignore

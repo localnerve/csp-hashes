@@ -2,12 +2,10 @@
  * Test entry
  */
 /* eslint-env jest */
-const path = require('path');
-const fs = require('fs');
-const hashstream = require('./lib').default;
-const Vinyl = require('vinyl');
-
-require('@babel/register');
+import path from 'path';
+import fs from 'fs';
+import Vinyl from 'vinyl';
+import hashstream from './lib';
 
 function fixtures (glob) {
   return path.join(__dirname, 'fixtures', glob);

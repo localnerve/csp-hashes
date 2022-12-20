@@ -2,11 +2,11 @@
  * Test removeCspMeta function.
  */
 /* eslint-env jest */
-const { Transform } = require('stream');
-const path = require('path');
-const fs = require('fs');
-const Vinyl = require('vinyl');
-const { removeCspMeta } = require('./lib/removeCspMeta');
+import { Transform } from 'stream';
+import path from 'path';
+import fs from 'fs';
+import Vinyl from 'vinyl';
+import { removeCspMeta } from './lib/removeCspMeta';
 
 describe('removeCspMeta', () => {
   describe('API', () => {
