@@ -8,6 +8,7 @@
 
 ## Contents
 + [Overview](#overview)
++ [Breaking Changes](#breaking-changes)
 + [API](#API)
   + [Options](#options)
     + [Callback Function](#callback-function)
@@ -15,10 +16,14 @@
 + [Example Usage](#example-usage)
   + [CSP Headers](#build-step-to-maintain-csp-headers)
   + [Meta Tag](#build-step-to-maintain-csp-meta-tags)
+  + [Non-Esm Usage](#non-esm-usage)
 + [MIT License](#license)
 
 ## Overview
 This Nodejs library generates script and style inline element and attribute hashes. It is for use in the generation of HTTP content security policy (CSP) headers or to replace/update Meta tags as a website build step. Ready for use with [Gulp](https://github.com/gulpjs/gulp).
+
+## Breaking Changes
++ As of Version 2+, this is an ES Module. See [Non-Esm Usage](#non-esm-usage) for how to use outside of ESM.
 
 ## Prerequisites
 + NodeJS 14+
@@ -152,6 +157,19 @@ export function stripCspMetaContents (settings) {
     .pipe(removeCspMeta())
     .pipe(gulp.dest(dist));
 }
+```
+
+### Non-ESM usage
+As of Version 2, this package is an ES Module, making it incompatible with `require`. To use outside of ESM, you can use this with a dynamic import as in the following example:
+
+```javascript
+import('@localnerve/csp-hashes').then(({ hashstream }) => {
+  hashstream({
+    callback: (p, hashes, contents) => {
+      // do stuff
+    }
+  });
+});
 ```
 
 ## LICENSE
