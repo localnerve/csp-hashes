@@ -41,6 +41,20 @@ Stream hashstream ({
 })
 ```
 
+See [`hashstream options`](#hashstream-options) for a detailed explanation of the input options.
+
+### createCspHash
+This library exports the helper method it uses to make CSP formatted hashes. This is useful if you have a picece of code you need to hash and place into your hash list outside the scope of the page as rendered.
+
+```
+String createCSPHash(inputString, algo = 'sha256')
+```
+
++ {String} **inputString** - Required - The input content to hash.
++ {String} **\[algo\]** - Optional - Defaults to `'sha256'`, can be one of 'sha256', 'sha384' or 'sha512'.
+
+Returns a ready to use csp hash string (with quotes) in the form of `'sha256-d3ii1Pel57UO62xosCMNgTaZJhJa87Gd/X6e7UdlEU8='`.
+
 ### removeCspMeta
 This library also exports a convenience helper method, `removeCspMeta` that is useful for some types of development builds. This method takes no options and returns a stream that operates on [Vinyl](https://github.com/gulpjs/vinyl) objects and removes any `Content-Security-Policy` content found in the files.
 
