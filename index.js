@@ -8,4 +8,4 @@
  * Licensed under the MIT license.
  */
 /* eslint-env node */
-export { hashstream as default, hashstream, removeCspMeta } from './lib/index.js';
+export { hashstream as default, hashstream, removeCspMeta, createCspHash } from './lib/index.js';
