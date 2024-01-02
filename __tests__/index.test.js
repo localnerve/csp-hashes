@@ -1,7 +1,7 @@
 /**
  * Test entry
  * 
- * Copyright (c) 2022-2023 Alex Grant (@localnerve), LocalNerve LLC
+ * Copyright (c) 2022-2024 Alex Grant (@localnerve), LocalNerve LLC
  * Licensed under the MIT license.
  */
 /* eslint-env jest */
