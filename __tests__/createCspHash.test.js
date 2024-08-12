@@ -5,8 +5,8 @@
  * Licensed under the MIT license.
  */
 /* eslint-env jest */
-import * as path from 'path';
-import * as fs from 'fs/promises';
+import * as path from 'node:path';
+import * as fs from 'node:fs/promises';
 import { createCspHash } from './lib';
 
 async function run (algo) {

@@ -5,8 +5,8 @@
  * Licensed under the MIT license.
  */
 /* eslint-env jest */
-import path from 'path';
-import fs from 'fs';
+import path from 'node:path';
+import fs from 'node:fs';
 import Vinyl from 'vinyl';
 import hashstream from './lib';
 
