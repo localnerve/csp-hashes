@@ -5,9 +5,9 @@
  * Licensed under the MIT license.
  */
 /* eslint-env jest */
-import { Transform } from 'stream';
-import path from 'path';
-import fs from 'fs';
+import { Transform } from 'node:stream';
+import path from 'node:path';
+import fs from 'node:fs';
 import Vinyl from 'vinyl';
 import { removeCspMeta } from './lib/removeCspMeta';
 
