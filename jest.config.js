@@ -6,5 +6,8 @@ export default {
   testPathIgnorePatterns: [
     '/node_modules/',
     '/tmp/'
+  ],
+  modulePathIgnorePatterns: [
+    '/tmp/'
   ]
 };
