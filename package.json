@@ -1,6 +1,6 @@
 {
   "name": "@localnerve/csp-hashes",
-  "version": "5.1.6",
+  "version": "5.1.7",
   "description": "Flexible library to generate CSP hashes",
   "main": "index.js",
   "type": "module",
@@ -16,10 +16,10 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.28.5",
-    "eslint": "^9.39.1",
-    "@eslint/js": "^9.39.1",
+    "eslint": "^9.39.2",
+    "@eslint/js": "^9.39.2",
     "globals": "^16.5.0",
-    "eslint-plugin-jest": "29.2.1",
+    "eslint-plugin-jest": "^29.11.0",
     "jest": "^30.2.0",
     "vinyl": "^3.0.1"
   },
