@@ -4,7 +4,6 @@
  * Copyright (c) 2022-2025 Alex Grant (@localnerve), LocalNerve LLC
  * Licensed under the MIT license.
  */
-/* eslint-env jest */
 import { Transform } from 'node:stream';
 import path from 'node:path';
 import fs from 'node:fs';
