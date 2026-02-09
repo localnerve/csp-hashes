@@ -1,6 +1,6 @@
 {
   "name": "@localnerve/csp-hashes",
-  "version": "5.2.0",
+  "version": "6.0.0",
   "description": "Flexible library to generate CSP hashes",
   "main": "index.js",
   "type": "module",
@@ -55,6 +55,6 @@
   },
   "homepage": "https://github.com/localnerve/csp-hashes#readme",
   "engines": {
-    "node": ">=18.17"
+    "node": ">=20"
   }
 }
