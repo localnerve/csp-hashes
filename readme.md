@@ -24,9 +24,10 @@ This Nodejs library generates script and style inline element and attribute hash
 
 ## Breaking Changes
 + As of Version 2+, this is an ES Module. See [Non-Esm Usage](#non-esm-usage) for how to use outside of ESM.
++ As of Version 6+, requires Node 20+
 
 ## Prerequisites
-+ NodeJS 18+
++ NodeJS 20+
 
 ## API
 
