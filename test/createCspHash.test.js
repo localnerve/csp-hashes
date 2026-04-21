@@ -4,17 +4,19 @@
  * Copyright (c) 2022-2025 Alex Grant (@localnerve), LocalNerve LLC
  * Licensed under the MIT license.
  */
+import { describe, it } from 'node:test';
+import assert from 'node:assert';
 import * as path from 'node:path';
 import * as fs from 'node:fs/promises';
-import { createCspHash } from './lib';
+import { createCspHash } from '../lib/index.js';
 
 async function run (algo) {
-  const fixtureBase = path.join(__dirname, 'fixtures');
+  const fixtureBase = path.join(import.meta.dirname, 'fixtures');
   const fixturePath = path.join(fixtureBase, `create-csp-hash.${algo || 'sha256'}`);
   const data = await fs.readFile(fixturePath, { encoding: 'utf8' });
   const [inputText, inputHash] = data.split(',');
   const outputHash = createCspHash(inputText, algo);
-  expect(outputHash).toEqual(`'${inputHash}'`);
+  assert.strictEqual(outputHash, `'${inputHash}'`);
 }
 
 describe('createCSPHash', () => {
