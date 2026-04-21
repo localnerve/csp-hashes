@@ -1,6 +1,6 @@
 import js from '@eslint/js';
 import globals from 'globals';
-import jest from 'eslint-plugin-jest';
+import nodePlugin from 'eslint-plugin-n';
 
 export default [{
   name: 'global',
@@ -11,18 +11,9 @@ export default [{
     'private/**',
     'tmp/**'
   ]
-}, {
-  name: 'tests',
-  files: ['__tests__/**'],
-  ...jest.configs['flat/recommended'],
-  rules: {
-    ...jest.configs['flat/recommended'].rules,
-    'jest/no-done-callback': 'off',
-    'jest/expect-expect': 'off'
-  }
-}, {
-  name: 'lib',
-  files: ['lib/**'],
+}, nodePlugin.configs['flat/recommended'], {
+  name: 'lib_and_tests',
+  files: ['**/*.js'],
   languageOptions: {
     globals: {
       ...globals.node

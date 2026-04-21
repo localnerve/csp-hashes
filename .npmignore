@@ -1,10 +1,8 @@
 tmp
-__tests__
+test
 .github
 .vscode
 coverage
-babel.config.json
-jest.config.js
-.eslintignore
 .gitignore
-.eslintrc.json
+.nvmrc
+eslint.config.js

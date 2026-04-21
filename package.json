@@ -1,6 +1,6 @@
 {
   "name": "@localnerve/csp-hashes",
-  "version": "6.0.1",
+  "version": "7.0.0",
   "description": "Flexible library to generate CSP hashes",
   "main": "index.js",
   "type": "module",
@@ -10,17 +10,14 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "pretest": "node -e 'try{require(\"fs\").symlinkSync(\"../lib\", \"./__tests__/lib\");}catch(e){}'",
-    "test": "jest",
-    "test:debug": "node --inspect-brk ./node_modules/.bin/jest"
+    "pretest": "node -e \"const fs=require('fs'); fs.rmSync('coverage', {recursive:true, force:true}); fs.mkdirSync('coverage')\"",
+    "test": "node --test --experimental-test-coverage --test-coverage-lines=95 --test-coverage-exclude='test/**' --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=coverage/lcov.info"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.29.2",
-    "eslint": "^10.2.0",
     "@eslint/js": "^10.0.1",
+    "eslint": "^10.2.0",
+    "eslint-plugin-n": "^17.24.0",
     "globals": "^17.5.0",
-    "eslint-plugin-jest": "29.15.2",
-    "jest": "^30.3.0",
     "vinyl": "^3.0.1"
   },
   "dependencies": {
@@ -52,6 +49,6 @@
   },
   "homepage": "https://github.com/localnerve/csp-hashes#readme",
   "engines": {
-    "node": ">=20"
+    "node": ">=22.16"
   }
 }
