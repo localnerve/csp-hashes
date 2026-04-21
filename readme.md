@@ -7,17 +7,23 @@
 [![Coverage Status](https://coveralls.io/repos/github/localnerve/csp-hashes/badge.svg?branch=main)](https://coveralls.io/github/localnerve/csp-hashes?branch=main)
 
 ## Contents
-+ [Overview](#overview)
-+ [Breaking Changes](#breaking-changes)
-+ [API](#API)
-  + [Options](#options)
-    + [Callback Function](#callback-function)
-    + [Callback Hashes Object](#callback-hashes-object)
-+ [Example Usage](#example-usage)
-  + [CSP Headers](#build-step-to-maintain-csp-headers)
-  + [Meta Tag](#build-step-to-maintain-csp-meta-tags)
-  + [Non-Esm Usage](#non-esm-usage)
-+ [MIT License](#license)
+- [csp-hashes](#csp-hashes)
+  - [Contents](#contents)
+  - [Overview](#overview)
+  - [Breaking Changes](#breaking-changes)
+  - [API](#api)
+    - [hashstream (also the default export)](#hashstream-also-the-default-export)
+    - [createCspHash](#createcsphash)
+    - [removeCspMeta](#removecspmeta)
+    - [Hashstream Options](#hashstream-options)
+      - [Callback Function](#callback-function)
+        - [Callback Hashes Object](#callback-hashes-object)
+  - [Example Usage](#example-usage)
+    - [Build Step to Maintain CSP Headers](#build-step-to-maintain-csp-headers)
+    - [Build Step to Maintain CSP Meta Tags](#build-step-to-maintain-csp-meta-tags)
+    - [Build Step to Remove CSP Meta Tag Content](#build-step-to-remove-csp-meta-tag-content)
+    - [Non-ESM usage](#non-esm-usage)
+  - [LICENSE](#license)
 
 ## Overview
 This Nodejs library generates script and style inline element and attribute hashes. It is for use in the generation of HTTP content security policy (CSP) headers or to replace/update Meta tags as a website build step. Ready for use with [Gulp](https://github.com/gulpjs/gulp).
@@ -25,9 +31,7 @@ This Nodejs library generates script and style inline element and attribute hash
 ## Breaking Changes
 + As of Version 2+, this is an ES Module. See [Non-Esm Usage](#non-esm-usage) for how to use outside of ESM.
 + As of Version 6+, requires Node 20+
-
-## Prerequisites
-+ NodeJS 20+
++ As of Version 7+, requires Node 22+
 
 ## API
 
