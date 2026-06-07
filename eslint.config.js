@@ -2,6 +2,15 @@ import js from '@eslint/js';
 import globals from 'globals';
 import nodePlugin from 'eslint-plugin-n';
 
+const nodeRules = {
+  'n/no-unsupported-features/node-builtins': [
+    'error',
+    {
+      'allowExperimental': true
+    }
+  ]
+};
+
 export default [{
   name: 'global',
   ignores: [
@@ -21,6 +30,7 @@ export default [{
   },
   rules: {
     ...js.configs.recommended.rules,
+    ...nodeRules,
     indent: [2, 2, {
       SwitchCase: 1,
       MemberExpression: 1
