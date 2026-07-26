@@ -22,11 +22,12 @@
     - [Build Step to Maintain CSP Headers](#build-step-to-maintain-csp-headers)
     - [Build Step to Maintain CSP Meta Tags](#build-step-to-maintain-csp-meta-tags)
     - [Build Step to Remove CSP Meta Tag Content](#build-step-to-remove-csp-meta-tag-content)
+    - [Native Node.js Streams (No Gulp/Vinyl Required)](#native-nodejs-streams-no-gulpvinyl-required)
     - [Non-ESM usage](#non-esm-usage)
   - [LICENSE](#license)
 
 ## Overview
-This Nodejs library generates script and style inline element and attribute hashes. It is for use in the generation of HTTP content security policy (CSP) headers or to replace/update Meta tags as a website build step. Ready for use with [Gulp](https://github.com/gulpjs/gulp).
+This Node.js library generates script and style inline element and attribute hashes. It is for use in the generation of HTTP content security policy (CSP) headers or to replace/update Meta tags as a website build step. Works with [Gulp](https://github.com/gulpjs/gulp) via Vinyl objects, or directly with native Node.js streams using plain file-like objects.
 
 ## Breaking Changes
 + As of Version 2+, this is an ES Module. See [Non-Esm Usage](#non-esm-usage) for how to use outside of ESM.
@@ -61,7 +62,7 @@ String createCSPHash(inputString, algo = 'sha256')
 Returns a ready to use csp hash string (with quotes) in the form of `'sha256-d3ii1Pel57UO62xosCMNgTaZJhJa87Gd/X6e7UdlEU8='`.
 
 ### removeCspMeta
-This library also exports a convenience helper method, `removeCspMeta` that is useful for some types of development builds. This method takes no options and returns a stream that operates on [Vinyl](https://github.com/gulpjs/vinyl) objects and removes any `Content-Security-Policy` content found in the files.
+This library also exports a convenience helper method, `removeCspMeta` that is useful for some types of development builds. This method takes no options and returns a stream that operates on [Vinyl](https://github.com/gulpjs/vinyl) objects or plain file-like objects with `path` and `contents` properties, removing any `Content-Security-Policy` content found in the files.
 
 ```
 Stream removeCspMeta ()
@@ -178,6 +179,70 @@ export function stripCspMetaContents (settings) {
 }
 ```
 
+### Native Node.js Streams (No Gulp/Vinyl Required)
+You can use `hashstream` directly with native Node.js streams by wrapping raw file buffers into plain file-like objects. This example reads HTML files from a source directory, processes them through `hashstream`, and writes the output to a destination:
+
+```javascript
+import fs from 'node:fs';
+import path from 'node:path';
+import { pipeline, Transform } from 'node:stream';
+import hashstream from '@localnerve/csp-hashes';
+
+const srcDir = './src/html';
+const destDir = './dist/html';
+
+// Wrap raw buffer chunks into plain file-like objects for the transform stream.
+function wrapFileObject (filePath) {
+  return new Transform({
+    readableObjectMode: true,
+    construct (callback) { callback(); },
+    transform (chunk, enc, done) {
+      this.push({ path: filePath, contents: chunk });
+      done();
+    }
+  });
+}
+
+// Unwrap file-like objects back to raw buffers for writing.
+function unwrapFileObject () {
+  return new Transform({
+    writableObjectMode: true,
+    construct (callback) { callback(); },
+    transform (fileObj, enc, done) {
+      this.push(fileObj.contents);
+      done();
+    }
+  });
+}
+
+async function processFile (filePath) {
+  const destPath = path.join(destDir, path.relative(srcDir, filePath));
+  fs.mkdirSync(path.dirname(destPath), { recursive: true });
+
+  await new Promise((resolve, reject) => {
+    pipeline(
+      fs.createReadStream(filePath),
+      wrapFileObject(filePath),
+      hashstream({
+        algo: 'sha256',
+        callback: (filePath, hashes) => {
+          console.log(`Processed ${path.basename(filePath)}:`);
+          console.log(`  Script hashes: ${hashes.script.all.length}`);
+          console.log(`  Style hashes:  ${hashes.style.all.length}`);
+        }
+      }),
+      unwrapFileObject(),
+      fs.createWriteStream(destPath),
+      (err) => err ? reject(err) : resolve()
+    );
+  });
+}
+
+// Process all .html files in the source directory
+const htmlFiles = fs.readdirSync(srcDir).filter(f => f.endsWith('.html')).map(f => path.join(srcDir, f));
+await Promise.all(htmlFiles.map(processFile));
+```
+
 ### Non-ESM usage
 As of Version 2, this package is an ES Module, making it incompatible with `require`. To use outside of ESM, you can use this with a dynamic import as in the following example:
 
@@ -194,3 +259,7 @@ import('@localnerve/csp-hashes').then(({ hashstream }) => {
 ## LICENSE
 
 * [MIT, Alex Grant, LocalNerve, LLC](license.md)
+
+## Author
+
+* Alex Grant, alex@localnerve.com, https://localnerve.com
