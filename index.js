@@ -8,4 +8,4 @@
  * Copyright (c) 2022-2025 Alex Grant (@localnerve), LocalNerve LLC
  * Licensed under the MIT license.
  */
-export { hashstream as default, hashstream, removeCspMeta, createCspHash } from './lib/index.js';
+export { hashstream as default, hashstream, removeCspMeta, createCspHash, cspHashes } from './lib/index.js';
