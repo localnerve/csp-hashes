@@ -13,6 +13,7 @@
   - [Breaking Changes](#breaking-changes)
   - [API](#api)
     - [hashstream (also the default export)](#hashstream-also-the-default-export)
+    - [cspHashes](#csphashes)
     - [createCspHash](#createcsphash)
     - [removeCspMeta](#removecspmeta)
     - [Hashstream Options](#hashstream-options)
@@ -48,6 +49,33 @@ Stream hashstream ({
 ```
 
 See [`hashstream options`](#hashstream-options) for a detailed explanation of the input options.
+
+### cspHashes
+This library exports a convenience function that takes an algorithm and HTML content, and returns a hashes object containing all CSP hashes for inline scripts and styles. This is useful for users who just have a few files to process and will handle I/O themselves, without needing a stream.
+
+```
+Object cspHashes(algo = 'sha256', content)
+```
+
++ {String} **\[algo\]** - Optional - Defaults to `'sha256'`, can be one of 'sha256', 'sha384' or 'sha512'.
++ {Buffer|String} **content** - Required - The HTML content to extract hashes from.
+
+Returns a [`hashes` object](#callback-hashes-object) with the same structure as the `hashstream` callback receives:
+
+```javascript
+{
+  script: {
+    elements: [],
+    attributes: [],
+    get all () { return this.elements.concat(this.attributes); }
+  },
+  style: {
+    elements: [],
+    attributes: [],
+    get all () { return this.elements.concat(this.attributes); }
+  }
+}
+```
 
 ### createCspHash
 This library exports the helper method it uses to make CSP formatted hashes. This is useful if you have a picece of code you need to hash and place into your hash list outside the scope of the page as rendered.
@@ -177,6 +205,20 @@ export function stripCspMetaContents (settings) {
     .pipe(removeCspMeta())
     .pipe(gulp.dest(dist));
 }
+```
+
+### Simple File Processing (No Stream Required)
+If you just have a few files to process and want to handle I/O yourself, use `cspHashes` instead of `hashstream`:
+
+```javascript
+import fs from 'node:fs';
+import { cspHashes } from '@localnerve/csp-hashes';
+
+const html = fs.readFileSync('./dist/index.html', { encoding: 'utf8' });
+const hashes = cspHashes('sha256', html);
+
+console.log('Script element hashes:', hashes.script.elements.join(' '));
+console.log('Style attribute hashes:', hashes.style.attributes.join(' '));
 ```
 
 ### Native Node.js Streams (No Gulp/Vinyl Required)
