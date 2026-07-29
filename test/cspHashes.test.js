@@ -57,7 +57,7 @@ function run (name, algo, {
     style: parseHashFixture(styleFixture)
   };
 
-  const actualHashes = cspHashes(algo, content);
+  const actualHashes = cspHashes(content, algo);
 
   Object.keys(expectedHashes).forEach(what => {
     // Strip quotes from actual hashes for comparison with fixture files (which don't have quotes)
@@ -116,7 +116,7 @@ describe('cspHashes should ignore scripts with src attribute', () => {
 
 describe('cspHashes should handle bad options', () => {
   it('should throw an exception on invalid algo', () => {
-    assert.throws(() => cspHashes('invalid', '<script>alert(1)</script>'));
+    assert.throws(() => cspHashes('<script>alert(1)</script>', 'invalid'));
   });
 });
 
@@ -148,7 +148,7 @@ describe('cspHashes should hash multiple scripts and styles, elements and attrib
 describe('cspHashes should work with string content', () => {
   it('should accept a string instead of Buffer', () => {
     const html = '<script>alert(\'world\')</script>';
-    const hashes = cspHashes('sha256', html);
+    const hashes = cspHashes(html, 'sha256');
     assert.strictEqual(hashes.script.elements.length, 1);
     assert.ok(hashes.script.elements[0].startsWith('\'' + 'sha256-'));
   });
@@ -156,7 +156,7 @@ describe('cspHashes should work with string content', () => {
 
 describe('cspHashes should return correct structure', () => {
   it('should have script and style properties with elements, attributes, and all getter', () => {
-    const hashes = cspHashes('sha256', '<div></div>');
+    const hashes = cspHashes('<div></div>', 'sha256');
     assert.ok(hashes.script);
     assert.ok(hashes.style);
     assert.strictEqual(Array.isArray(hashes.script.elements), true);
@@ -171,7 +171,7 @@ describe('cspHashes should return correct structure', () => {
   });
 
   it('should have empty arrays for content with no scripts or styles', () => {
-    const hashes = cspHashes('sha256', '<div>no inline scripts</div>');
+    const hashes = cspHashes('<div>no inline scripts</div>', 'sha256');
     assert.strictEqual(hashes.script.elements.length, 0);
     assert.strictEqual(hashes.script.attributes.length, 0);
     assert.strictEqual(hashes.style.elements.length, 0);
@@ -182,8 +182,8 @@ describe('cspHashes should return correct structure', () => {
 describe('cspHashes should use default algo when not specified', () => {
   it('should default to sha256', () => {
     const html = '<script>alert(1)</script>';
-    const hashesDefault = cspHashes(undefined, html);
-    const hashesExplicit = cspHashes('sha256', html);
+    const hashesDefault = cspHashes(html);
+    const hashesExplicit = cspHashes(html, 'sha256');
     assert.strictEqual(hashesDefault.script.elements[0], hashesExplicit.script.elements[0]);
   });
 });
