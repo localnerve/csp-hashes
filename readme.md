@@ -54,11 +54,11 @@ See [`hashstream options`](#hashstream-options) for a detailed explanation of th
 This library exports a convenience function that takes an algorithm and HTML content, and returns a hashes object containing all CSP hashes for inline scripts and styles. This is useful for users who just have a few files to process and will handle I/O themselves, without needing a stream.
 
 ```
-Object cspHashes(algo = 'sha256', content)
+Object cspHashes(content, algo = 'sha256')
 ```
 
-+ {String} **\[algo\]** - Optional - Defaults to `'sha256'`, can be one of 'sha256', 'sha384' or 'sha512'.
 + {Buffer|String} **content** - Required - The HTML content to extract hashes from.
++ {String} **\[algo\]** - Optional - Defaults to `'sha256'`, can be one of 'sha256', 'sha384' or 'sha512'.
 
 Returns a [`hashes` object](#callback-hashes-object) with the same structure as the `hashstream` callback receives:
 
@@ -215,7 +215,7 @@ import fs from 'node:fs';
 import { cspHashes } from '@localnerve/csp-hashes';
 
 const html = fs.readFileSync('./dist/index.html', { encoding: 'utf8' });
-const hashes = cspHashes('sha256', html);
+const hashes = cspHashes(html, 'sha256');
 
 console.log('Script element hashes:', hashes.script.elements.join(' '));
 console.log('Style attribute hashes:', hashes.style.attributes.join(' '));
