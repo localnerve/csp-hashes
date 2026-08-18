@@ -1,6 +1,6 @@
 {
   "name": "@localnerve/csp-hashes",
-  "version": "8.0.1",
+  "version": "8.0.2",
   "description": "Flexible library to generate CSP hashes",
   "main": "index.js",
   "type": "module",
@@ -17,7 +17,7 @@
     "@eslint/js": "^10.0.1",
     "eslint": "^10.8.1",
     "eslint-plugin-n": "^18.3.0",
-    "globals": "^17.9.0",
+    "globals": "^17.11.0",
     "vinyl": "^3.0.1"
   },
   "dependencies": {
