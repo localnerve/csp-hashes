@@ -25,6 +25,9 @@
     - [Build Step to Remove CSP Meta Tag Content](#build-step-to-remove-csp-meta-tag-content)
     - [Native Node.js Streams (No Gulp/Vinyl Required)](#native-nodejs-streams-no-gulpvinyl-required)
     - [Non-ESM usage](#non-esm-usage)
+  - [Other CSP Libraries](#other-csp-libraries)
+    - [@localnerve/trusted-types-rules](#trusted-types-rules)
+    - [@localnerve/trusted-types-bootstrap](#trusted-types-bootstrap)
   - [LICENSE](#license)
 
 ## Overview
@@ -297,6 +300,26 @@ import('@localnerve/csp-hashes').then(({ hashstream }) => {
   });
 });
 ```
+
+## Other CSP Libraries
+
+See [table](#table-of-csp-libraries) for a summary list of all libraries.
+
+### Trusted Types Rules
+Computes Content-Security-Policy `trusted-types` rules and audit injection sinks
+from JavaScript sources, including web components. Derives the
+`trusted-types <policyName>` directive and reports warnings if any new code escapes rules.
+
+### Trusted Types Bootstrap
+Detects CSP enforcement and registers an application's trusted types for a page. Boilerplate bootstrap script factored into a tree-shakable library. Small basic utilities included with opt-in to heavier tools like DOMPurify.
+
+### Table of CSP Libraries
+
+| Package | Scope | Role |
+| --- | --- | --- |
+| [`@localnerve/trusted-types-rules`](https://github.com/localnerve/trusted-types-rules) | build-time audit | Computes the CSP `trusted-types` allowlist from built JS (AST). |
+| [`@localnerve/trusted-types-bootstrap`](https://github.com/localnerve/trusted-types-bootstrap) | app/page-level bootstrap | Registers the app's `default` + named policies, shim, violation logging. One call per app. |
+
 
 ## LICENSE
 
