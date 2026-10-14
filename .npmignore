@@ -5,6 +5,5 @@ test
 coverage
 .gitignore
 .nvmrc
-.continueignore
 eslint.config.js
 *.log
